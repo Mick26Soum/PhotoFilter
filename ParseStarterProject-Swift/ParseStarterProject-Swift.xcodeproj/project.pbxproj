@@ -10,6 +10,7 @@
 		004461AB1B81C351000EBF92 /* seattle_night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 004461AA1B81C351000EBF92 /* seattle_night.jpg */; };
 		00696BFC1B82E300008B15D6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 00696BFB1B82E300008B15D6 /* .gitignore */; };
 		00696BFE1B82E43A008B15D6 /* ParseKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00696BFD1B82E43A008B15D6 /* ParseKey.swift */; };
+		006B9F541B83B2ED00343F0F /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006B9F531B83B2ED00343F0F /* GalleryViewController.swift */; };
 		00DFBC731B81C83700705A50 /* ThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DFBC721B81C83700705A50 /* ThumbnailCell.swift */; };
 		00EC5E761B82405200CE4FE0 /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC5E751B82405200CE4FE0 /* FilterService.swift */; };
 		00EC5E781B82413100CE4FE0 /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EC5E771B82413100CE4FE0 /* ImageResizer.swift */; };
@@ -29,6 +30,7 @@
 		004461AA1B81C351000EBF92 /* seattle_night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = seattle_night.jpg; sourceTree = "<group>"; };
 		00696BFB1B82E300008B15D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		00696BFD1B82E43A008B15D6 /* ParseKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseKey.swift; sourceTree = "<group>"; };
+		006B9F531B83B2ED00343F0F /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		00DFBC721B81C83700705A50 /* ThumbnailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailCell.swift; sourceTree = "<group>"; };
 		00EC5E751B82405200CE4FE0 /* FilterService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };
 		00EC5E771B82413100CE4FE0 /* ImageResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				00EC5E771B82413100CE4FE0 /* ImageResizer.swift */,
 				00EC5E751B82405200CE4FE0 /* FilterService.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				006B9F531B83B2ED00343F0F /* GalleryViewController.swift */,
 				00696BFD1B82E43A008B15D6 /* ParseKey.swift */,
 				00696BFB1B82E300008B15D6 /* .gitignore */,
 			);
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00DFBC731B81C83700705A50 /* ThumbnailCell.swift in Sources */,
+				006B9F541B83B2ED00343F0F /* GalleryViewController.swift in Sources */,
 				00696BFE1B82E43A008B15D6 /* ParseKey.swift in Sources */,
 				00EC5E761B82405200CE4FE0 /* FilterService.swift in Sources */,
 				00EC5E781B82413100CE4FE0 /* ImageResizer.swift in Sources */,

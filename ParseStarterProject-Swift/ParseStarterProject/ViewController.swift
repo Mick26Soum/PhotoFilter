@@ -16,7 +16,7 @@ class ViewController: UIViewController {
 	let kleadImageBuffer : CGFloat = 70
 	let ktopImageBuffer : CGFloat = 70
 	let ktrailingImageBuffer : CGFloat = -70
-	let kbottomImageBuffer : CGFloat = 140
+	let kbottomImageBuffer : CGFloat = -120
 	let kThumbnailSize = CGSize(width: 100, height: 100)
 	
 	let kStandardConstraintMargin : CGFloat = 8
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
 	var thumbnailImage:UIImage!
 	
 	var displayImage : UIImage! {
-		didSet {
+		didSet { //properyt observers
 			imageView.image = displayImage
 			thumbnailImage = ImageResizer.resizeImage(displayImage, size:kThumbnailSize)
 			collectionView.reloadData()
@@ -69,13 +69,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 		
 		title = "Home"
-		collectionView.dataSource = self
-		imageView.image = UIImage(named: "seattle_night.jpg")
 		
-		//alertAction setup: 1 - Check for Device type and set action accordingly
+		//Datasource and Delegate Setup for ImagePicker and Collection View
+		
+		collectionView.dataSource = self
+		collectionView.delegate = self
+	
+		imagePicker.delegate = self
+		imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+		
+		displayImage = UIImage(named: "seattle_night.jpg")
 		
 		if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
-			
+			//should we put a poper over view here?
 		}
 		
 		let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (alert) -> Void in
@@ -110,31 +116,40 @@ class ViewController: UIViewController {
 		let uploadAction = UIAlertAction(title: "Upload", style: UIAlertActionStyle.Default) { (alert) -> Void in
 			
 			let post = PFObject(className: "Post")
-			post["text"] = "SeattleNight"
+			post["text"] = "Static Text" //Currently statict text, normalling would as user to label the image
 			
 			let resizedImage = ImageResizer.resizeImage(self.imageView.image!, size:self.kPostImageSize)
 			
 			let data = UIImageJPEGRepresentation(resizedImage, 1.0)
 			
-			let file = PFFile(name: "post.jpeg", data: data)
+			let file = PFFile(name: "post.jpg", data: data)
 			post["image"] = file
 			post.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
 				
-				})
+			})
+		}
+		
+		let galleryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) { (alert) -> Void in
+			self.performSegueWithIdentifier("showGallery", sender: self)
 		}
 
 			//catch all addAction items
 			alertController.addAction(uploadAction)
 			alertController.addAction(cancelAction)
 			alertController.addAction(confirmAction)
-		
-			//set up imagePicker Delegate
-			imagePicker.delegate = self
-			imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-		
-			displayImage = UIImage(named: "seattle_night.jpg")
+			alertController.addAction(galleryAction)
 		
     }//end of viewDidLoad
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "ShowGallery" {
+			if let galleryViewController = segue.destinationViewController as? GalleryViewController {
+				galleryViewController.delegate = self
+				galleryViewController.desiredFinalImageSize = imageView.frame.size
+			}
+		}
+
+	}
 	
 //MARK: Filter Function
 	func filterModeTransition() {
@@ -166,7 +181,6 @@ class ViewController: UIViewController {
 	
 	}
 
-
 }
 
 //MARK: UIImagePickerControllerDelegate
@@ -185,7 +199,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 }
 
 //MARK: UICollectionViewDataSource
-extension ViewController : UICollectionViewDataSource {
+extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return filters.count
 	}
@@ -198,13 +212,23 @@ extension ViewController : UICollectionViewDataSource {
 		cell.thumbnailImage.image = filteredImage
 		return cell
 	}
+	
+	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+		var cell : UICollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath)!
+		let filter = filters[indexPath.row]
+		let mainImageFiltered = filter(imageView.image!, context)
+		self.displayImage = mainImageFiltered
+//	self.imageView.image = mainImageFiltered
+	}
 }
 
-//extension ViewController : ImageSelectedDelegate {
-//	func controllerDidSelectImage(newImage: UIImage) {
-//		displayImage = newImage
-//	}
-//}
+//MARK: GalleryView Controller Delegate Set Up
+extension ViewController : ImageSelectedDelegate {
+	func controllerDidSelectImage(newImage: UIImage) {
+		displayImage = newImage
+	}
+}
+
 
 
 
