@@ -13,13 +13,15 @@ import Parse
 class ViewController: UIViewController {
 
 //MARK: Constraint Buffer Constants
-	let kleadImageBuffer : CGFloat = 40
-	let ktopImageBuffer : CGFloat = 40
-	let ktrailingImageBuffer : CGFloat = -40
-	let kbottomImageBuffer : CGFloat = 90
+	let kleadImageBuffer : CGFloat = 70
+	let ktopImageBuffer : CGFloat = 70
+	let ktrailingImageBuffer : CGFloat = -70
+	let kbottomImageBuffer : CGFloat = 140
 	let kThumbnailSize = CGSize(width: 100, height: 100)
 	
 	let kStandardConstraintMargin : CGFloat = 8
+	
+	let kPostImageSize = CGSize(width: 600, height: 600)
 
 //MARK: IBOutlets
   @IBOutlet weak var imageView: UIImageView!
@@ -34,12 +36,12 @@ class ViewController: UIViewController {
 //MARK: IBAction
 	@IBAction func buttonPressed(sender: AnyObject) {
 		
-//		alertController.modalPresentationStyle = UIModalPresentationStyle.Popover
-//		
-//		if let popover = alert.popoverPresentationController {
-//			popover.sourceView = view
-//			popover.sourceRect = alertButton.frame
-//		}
+		alertController.modalPresentationStyle = UIModalPresentationStyle.Popover
+		
+		if let popover = alertController.popoverPresentationController {
+			popover.sourceView = view
+			popover.sourceRect = alertButton.frame
+		}
 		self.presentViewController(alertController, animated: true, completion: nil)
 	}
 	
@@ -55,27 +57,19 @@ class ViewController: UIViewController {
 	
 	var thumbnailImage:UIImage!
 	
-	//!!check this line of code
 	var displayImage : UIImage! {
 		didSet {
 			imageView.image = displayImage
 			thumbnailImage = ImageResizer.resizeImage(displayImage, size:kThumbnailSize)
-//			collectionView.reloadData()
+			collectionView.reloadData()
 		}
 	}
 	
   override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let testObject = PFObject(className: "TestObject2")
-		testObject["hey"] = "What up"
-		testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-			println("Object has been saved.")
-		}
-		
-		
 		title = "Home"
-		//collectionView.dataSource = self
+		collectionView.dataSource = self
 		imageView.image = UIImage(named: "seattle_night.jpg")
 		
 		//alertAction setup: 1 - Check for Device type and set action accordingly
@@ -112,9 +106,25 @@ class ViewController: UIViewController {
 			
 			alertController.addAction(filterAction)
 		}
-
 		
+		let uploadAction = UIAlertAction(title: "Upload", style: UIAlertActionStyle.Default) { (alert) -> Void in
+			
+			let post = PFObject(className: "Post")
+			post["text"] = "SeattleNight"
+			
+			let resizedImage = ImageResizer.resizeImage(self.imageView.image!, size:self.kPostImageSize)
+			
+			let data = UIImageJPEGRepresentation(resizedImage, 1.0)
+			
+			let file = PFFile(name: "post.jpeg", data: data)
+			post["image"] = file
+			post.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
+				
+				})
+		}
+
 			//catch all addAction items
+			alertController.addAction(uploadAction)
 			alertController.addAction(cancelAction)
 			alertController.addAction(confirmAction)
 		
@@ -142,8 +152,18 @@ class ViewController: UIViewController {
 	}
 	
 	func endFilterMode() {
-		// back the same position as before you enter fitler mode and dismissViewControllerAnimated
-		//redirect 
+	
+		leadingImageViewConstraint.constant = leadingImageViewConstraint.constant - kleadImageBuffer
+		topImageViewConstraint.constant = topImageViewConstraint.constant - ktopImageBuffer
+		trailingImageViewConstraint.constant = trailingImageViewConstraint.constant - ktrailingImageBuffer
+		bottomImageViewConstraint.constant = bottomImageViewConstraint.constant - kbottomImageBuffer
+		
+		UIView.animateWithDuration(0.3, animations: { () -> Void in
+			self.view.layoutIfNeeded()
+		})
+		
+		navigationItem.rightBarButtonItem = nil
+	
 	}
 
 
@@ -162,10 +182,29 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 		imagePicker.dismissViewControllerAnimated(true, completion: nil)
 		println("Picker Cancelled")
 	}
-	
-	
 }
 
+//MARK: UICollectionViewDataSource
+extension ViewController : UICollectionViewDataSource {
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return filters.count
+	}
+	
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ThumbnailCell", forIndexPath: indexPath) as! ThumbnailCell
+		
+		let filter = filters[indexPath.row]
+		let filteredImage = filter(thumbnailImage,context)
+		cell.thumbnailImage.image = filteredImage
+		return cell
+	}
+}
+
+//extension ViewController : ImageSelectedDelegate {
+//	func controllerDidSelectImage(newImage: UIImage) {
+//		displayImage = newImage
+//	}
+//}
 
 
 

@@ -24,7 +24,6 @@ class FilterService {
 		let image = CIImage(image: original)
 		let filter = CIFilter(name: "CIPhotoEffectInstant")
 		filter.setValue(image, forKey: kCIInputImageKey)
-		//set the vector for the colors
 		
 		return filteredImageFromFilter(filter, context: context)
 	}
