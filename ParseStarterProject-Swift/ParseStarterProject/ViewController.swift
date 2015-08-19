@@ -194,7 +194,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 	
 	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
 		imagePicker.dismissViewControllerAnimated(true, completion: nil)
-		println("Picker Cancelled")
+		
 	}
 }
 

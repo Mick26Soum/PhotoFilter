@@ -9,7 +9,7 @@
         <!--TimeLine-->
         <scene sceneID="WFb-fT-ps5">
             <objects>
-                <viewController id="iVa-gD-24q" sceneMemberID="viewController">
+                <viewController id="iVa-gD-24q" customClass="TimeLineViewController" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9QS-CS-HDQ"/>
                         <viewControllerLayoutGuide type="bottom" id="2Gl-nC-NcM"/>
@@ -17,9 +17,46 @@
                     <view key="view" contentMode="scaleToFill" id="LCu-6B-BaH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Wxw-QW-W7f">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="thumbNail" rowHeight="80" id="uJd-3V-5KW">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uJd-3V-5KW" id="HvW-t6-OoX">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dkH-1s-d9d">
+                                                    <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="aDu-ek-M4E"/>
+                                                        <constraint firstAttribute="height" constant="60" id="hpc-K7-IXz"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dkH-1s-d9d" firstAttribute="leading" secondItem="HvW-t6-OoX" secondAttribute="leading" constant="8" id="08c-3c-BRu"/>
+                                                <constraint firstItem="dkH-1s-d9d" firstAttribute="top" secondItem="HvW-t6-OoX" secondAttribute="top" constant="8" id="0Yb-lU-QQr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wxw-QW-W7f" firstAttribute="bottom" secondItem="LCu-6B-BaH" secondAttribute="bottomMargin" id="4tW-I7-l2j"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wxw-QW-W7f" secondAttribute="trailing" constant="-16" id="8g2-cF-ude"/>
+                            <constraint firstItem="Wxw-QW-W7f" firstAttribute="leading" secondItem="LCu-6B-BaH" secondAttribute="leadingMargin" constant="-16" id="ldc-kZ-wq4"/>
+                            <constraint firstItem="Wxw-QW-W7f" firstAttribute="top" secondItem="LCu-6B-BaH" secondAttribute="topMargin" id="vRM-KR-Fdw"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="TimeLine" id="nTd-FV-7Yo"/>
+                    <connections>
+                        <outlet property="ImageView" destination="dkH-1s-d9d" id="3C0-Be-lqy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zh9-eP-ClR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -139,16 +176,16 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="the-rF-AYb"/>
                                 <exclude reference="XSE-91-e9g"/>
+                                <exclude reference="the-rF-AYb"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
                                 <exclude reference="T2L-tu-ogE"/>
-                                <include reference="the-rF-AYb"/>
                                 <include reference="XSE-91-e9g"/>
                                 <exclude reference="yJu-Vz-Jz1"/>
+                                <include reference="the-rF-AYb"/>
                             </mask>
                         </variation>
                     </view>
@@ -158,9 +195,8 @@
                         <outlet property="bottomImageViewConstraint" destination="T2L-tu-ogE" id="VB7-KH-f6S"/>
                         <outlet property="collectionView" destination="zqj-wN-vFi" id="3DT-uy-K71"/>
                         <outlet property="imageView" destination="wjR-OC-aRC" id="sg0-Rw-ZO5"/>
-                        <outlet property="leadingImageViewConstraint" destination="ahS-F4-yy5" id="zAT-Bh-q2w"/>
                         <outlet property="topImageViewConstraint" destination="i2j-Zq-8ct" id="JVh-BQ-UQi"/>
-                        <outlet property="trailingImageViewConstraint" destination="pqC-kM-9H2" id="Aqo-Ei-CkP"/>
+                        <outlet property="topwChRViewConstraint" destination="i2j-Zq-8ct" id="X81-ji-Tsc"/>
                         <segue destination="uqt-XK-oZA" kind="show" identifier="showGallery" id="yur-ba-SUa"/>
                     </connections>
                 </viewController>
@@ -180,8 +216,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zgh-Iq-ppP">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zgh-Iq-ppP">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QZc-OD-a2t">
                                     <size key="itemSize" width="97" height="70"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -189,7 +225,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCell" id="kik-nN-GbG">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="galleryCell" id="kik-nN-GbG" customClass="ThumbnailCell" customModule="ParseStarterProject_Swift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -214,6 +250,9 @@
                             <constraint firstItem="Zgh-Iq-ppP" firstAttribute="top" secondItem="FfF-Gf-iLF" secondAttribute="topMargin" id="iAP-6R-1Jp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="galleryCollectionView" destination="Zgh-Iq-ppP" id="ixU-Bs-LyN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wi-TE-n89" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

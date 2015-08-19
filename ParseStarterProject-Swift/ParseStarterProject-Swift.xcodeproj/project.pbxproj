@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0030DDE21B847E4A00DFA4BE /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030DDE11B847E4A00DFA4BE /* TimeLineViewController.swift */; };
 		004461AB1B81C351000EBF92 /* seattle_night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 004461AA1B81C351000EBF92 /* seattle_night.jpg */; };
 		00696BFC1B82E300008B15D6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 00696BFB1B82E300008B15D6 /* .gitignore */; };
 		00696BFE1B82E43A008B15D6 /* ParseKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00696BFD1B82E43A008B15D6 /* ParseKey.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0030DDE11B847E4A00DFA4BE /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeLineViewController.swift; path = ../TimeLineViewController.swift; sourceTree = "<group>"; };
 		004461AA1B81C351000EBF92 /* seattle_night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = seattle_night.jpg; sourceTree = "<group>"; };
 		00696BFB1B82E300008B15D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		00696BFD1B82E43A008B15D6 /* ParseKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseKey.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				00DFBC721B81C83700705A50 /* ThumbnailCell.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
+				0030DDE11B847E4A00DFA4BE /* TimeLineViewController.swift */,
 				00EC5E771B82413100CE4FE0 /* ImageResizer.swift */,
 				00EC5E751B82405200CE4FE0 /* FilterService.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
@@ -231,6 +234,7 @@
 				00696BFE1B82E43A008B15D6 /* ParseKey.swift in Sources */,
 				00EC5E761B82405200CE4FE0 /* FilterService.swift in Sources */,
 				00EC5E781B82413100CE4FE0 /* ImageResizer.swift in Sources */,
+				0030DDE21B847E4A00DFA4BE /* TimeLineViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 			);

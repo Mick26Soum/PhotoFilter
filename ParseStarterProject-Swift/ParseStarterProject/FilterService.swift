@@ -24,12 +24,10 @@ class FilterService {
 		let image = CIImage(image: original)
 		let filter = CIFilter(name: "CIPhotoEffectInstant")
 		filter.setValue(image, forKey: kCIInputImageKey)
-		
 		return filteredImageFromFilter(filter, context: context)
 	}
 	
 	private class func filteredImageFromFilter(filter : CIFilter, context : CIContext) -> UIImage {
-		
 		let outputImage = filter.outputImage
 		let extent = outputImage.extent()
 		let cgImage = context.createCGImage(outputImage, fromRect: extent)

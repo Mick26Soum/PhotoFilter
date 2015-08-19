@@ -15,8 +15,10 @@ protocol ImageSelectedDelegate : class {
 
 class GalleryViewController: UIViewController {
 
-//	var fetchResult : PHFetchResult!
-//	let cellSize = CGSize(width: 100, height: 100)
+	@IBOutlet weak var galleryCollectionView: UICollectionView!
+
+	var fetchResult : PHFetchResult!
+	let cellSize = CGSize(width: 100, height: 100)
 	var desiredFinalImageSize : CGSize!
 	var startingScale : CGFloat = 0
 	var scale : CGFloat = 0
@@ -26,8 +28,89 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+        // gallerCollectionview delegat&datasource
+				galleryCollectionView.dataSource = self
+				galleryCollectionView.delegate = self
+			
+				fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
+			
+				let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinchRecognized:")
+			
+				galleryCollectionView.addGestureRecognizer(pinchGesture)
+			
+    }//end of viewDidLoad()
+	
+		//pinch gesture setup
+	func pinchRecognized(pinch : UIPinchGestureRecognizer) {
+		//println(pinch.scale)
+		
+		if pinch.state == UIGestureRecognizerState.Began {
+			println("began!")
+			startingScale = pinch.scale
+		}
+		
+		if pinch.state == UIGestureRecognizerState.Changed {
+			println("changed!")
+		}
+		
+		if pinch.state == UIGestureRecognizerState.Ended {
+			println("ended!")
+			scale = startingScale * pinch.scale
+			let layout = galleryCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+			let newSize = CGSize(width: layout.itemSize.width * scale, height: layout.itemSize.height * scale)
+			
+			galleryCollectionView.performBatchUpdates({ () -> Void in
+				layout.itemSize = newSize
+				layout.invalidateLayout()
+				}, completion: nil )
+		}
+	}
 
+	
+}//end of GallerViewController
 
+//MARK: UICollectionViewDataSource
+extension GalleryViewController : UICollectionViewDataSource {
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return fetchResult.count
+	}
+	
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+	println("Collection cellforItmeAtIndex")
+		
+		let cell = galleryCollectionView.dequeueReusableCellWithReuseIdentifier("galleryCell", forIndexPath: indexPath) as! ThumbnailCell
+		
+		if let asset = fetchResult[indexPath.row] as? PHAsset {
+			PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: cellSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (image, info) -> Void in
+				
+				if let image = image {
+//					println("calling request handler for row :\(indexPath.row) for image size: \(image.size)")
+					cell.thumbnailImage.image = image
+				}
+			}
+		}
+		
+		return cell
+	}
 }
+
+extension GalleryViewController : UICollectionViewDelegate {
+	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		
+		
+		let options = PHImageRequestOptions()
+		options.synchronous = true
+		
+		if let asset = fetchResult[indexPath.row] as? PHAsset {
+			PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: desiredFinalImageSize, contentMode: PHImageContentMode.AspectFill, options: options) { (image, info) -> Void in
+				
+				if let image = image {
+					println("calling request handler for row :\(indexPath.row) for image size: \(image.size)")
+					self.delegate?.controllerDidSelectImage(image)
+					self.navigationController?.popViewControllerAnimated(true)
+				}
+			}
+		}
+	}
+}
+
