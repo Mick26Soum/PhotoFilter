@@ -62,7 +62,9 @@ oddElements(array)
 
 
 
-//Day 3 Code Challenge: Write a function that computes the list of the first 100 Fibonacci numbers.
+////Day 3 Code Challenge: Write a function that computes the list of the first 100 Fibonacci numbers.
+// source weheartswift.com
+// need to rework this!
 
 func fibonacci1(n: Int) -> Int {
 	if n < 2 {
@@ -76,16 +78,26 @@ func fibonacci1(n: Int) -> Int {
 	return fib
 }
 
-fibonacci1(100)
+var new = fibonacci1(100)
+println(new)
 
 
-func fibonacci(n: Int) -> Int {
-	if n < 2 {
-		return n
-	} else {
-		return fibonacci(n-1) + fibonacci(n-2)
-	}
+
+//Day 4 Write a function that tests whether a string is a palindrome
+//source weheartswift.com
+
+let testString = "anutforajaroftuna"
+
+var reverse = ""
+
+for scalar in testString.unicodeScalars {
+	var char = "\(scalar)"
+	reverse = char + reverse
 }
 
-println(fibonacci(30))
+println(testString == reverse)
+
+
+
+
 
