@@ -180,7 +180,7 @@ class ViewController: UIViewController {
 		topImageConstraint.constant = topImageConstraint.constant - ktopImageBuffer
 		trailingImageViewConstraint.constant = trailingImageViewConstraint.constant - ktrailingImageBuffer
 		bottomImageViewConstraint.constant = bottomImageViewConstraint.constant - kbottomImageBuffer
-		collectionViewConstraint.constant = collectionViewConstraint.constant - kcollectionViewBuffer
+		collectionViewConstraint.constant = collectionViewConstraint.constant - (kcollectionViewBuffer * 2)
 		
 		
 		UIView.animateWithDuration(0.3, animations: { () -> Void in

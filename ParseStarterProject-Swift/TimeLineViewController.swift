@@ -30,7 +30,7 @@ class TimeLineViewController: UIViewController {
 					println(error.localizedDescription)
 				} else if let posts = results as? [PFObject] {
 				self.Posts = posts
-				self.timeTable.reloadData()
+				self.timeTable.reloadData()  //implement property observers next time in the Post variable
 				}
 			}
 			
@@ -53,9 +53,11 @@ extension TimeLineViewController: UITableViewDataSource, UITableViewDelegate{
 	
 		
 		//get index of cell
-		var Post = Posts[indexPath.row]
+		var post = Posts[indexPath.row]
 	
-		if let imageFile = Post["image"] as? PFFile{
+	
+		//implement lazy down process or 
+		if let imageFile = post["image"] as? PFFile{
 			imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
 				if let error = error{
 					println(error.localizedDescription)

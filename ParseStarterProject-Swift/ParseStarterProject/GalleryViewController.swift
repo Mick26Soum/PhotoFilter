@@ -41,16 +41,16 @@ class GalleryViewController: UIViewController {
     }//end of viewDidLoad()
 	
 		//pinch gesture setup
-	func pinchRecognized(pinch : UIPinchGestureRecognizer) {
+		func pinchRecognized(pinch : UIPinchGestureRecognizer) {
 		
 		
 		if pinch.state == UIGestureRecognizerState.Began {
-			println("began!")
+			
 			startingScale = pinch.scale
 		}
 		
 		if pinch.state == UIGestureRecognizerState.Changed {
-			println("changed!")
+			
 		}
 		
 		if pinch.state == UIGestureRecognizerState.Ended {
@@ -102,7 +102,6 @@ extension GalleryViewController : UICollectionViewDelegate {
 			PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: desiredFinalImageSize, contentMode: PHImageContentMode.AspectFill, options: options) { (image, info) -> Void in
 				
 				if let image = image {
-					println("calling request handler for row :\(indexPath.row) for image size: \(image.size)")
 					self.delegate?.controllerDidSelectImage(image)
 					self.navigationController?.popViewControllerAnimated(true)
 				}
