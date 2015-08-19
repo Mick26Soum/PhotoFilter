@@ -42,7 +42,7 @@ class GalleryViewController: UIViewController {
 	
 		//pinch gesture setup
 	func pinchRecognized(pinch : UIPinchGestureRecognizer) {
-		//println(pinch.scale)
+		
 		
 		if pinch.state == UIGestureRecognizerState.Began {
 			println("began!")
@@ -54,7 +54,7 @@ class GalleryViewController: UIViewController {
 		}
 		
 		if pinch.state == UIGestureRecognizerState.Ended {
-			println("ended!")
+
 			scale = startingScale * pinch.scale
 			let layout = galleryCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
 			let newSize = CGSize(width: layout.itemSize.width * scale, height: layout.itemSize.height * scale)
@@ -76,15 +76,12 @@ extension GalleryViewController : UICollectionViewDataSource {
 	}
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-	println("Collection cellforItmeAtIndex")
 		
 		let cell = galleryCollectionView.dequeueReusableCellWithReuseIdentifier("galleryCell", forIndexPath: indexPath) as! ThumbnailCell
 		
 		if let asset = fetchResult[indexPath.row] as? PHAsset {
 			PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: cellSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (image, info) -> Void in
-				
 				if let image = image {
-//					println("calling request handler for row :\(indexPath.row) for image size: \(image.size)")
 					cell.thumbnailImage.image = image
 				}
 			}

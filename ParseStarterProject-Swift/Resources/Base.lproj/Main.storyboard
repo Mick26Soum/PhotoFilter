@@ -22,25 +22,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="thumbNail" rowHeight="80" id="uJd-3V-5KW">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeLineCell" rowHeight="80" id="uJd-3V-5KW" customClass="TimeViewCell" customModule="ParseStarterProject_Swift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uJd-3V-5KW" id="HvW-t6-OoX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dkH-1s-d9d">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dkH-1s-d9d">
                                                     <rect key="frame" x="8" y="8" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="aDu-ek-M4E"/>
                                                         <constraint firstAttribute="height" constant="60" id="hpc-K7-IXz"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUq-k8-gjp">
+                                                    <rect key="frame" x="76" y="27" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dkH-1s-d9d" firstAttribute="leading" secondItem="HvW-t6-OoX" secondAttribute="leading" constant="8" id="08c-3c-BRu"/>
                                                 <constraint firstItem="dkH-1s-d9d" firstAttribute="top" secondItem="HvW-t6-OoX" secondAttribute="top" constant="8" id="0Yb-lU-QQr"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="timeLineUIImage" destination="dkH-1s-d9d" id="Z7w-ZJ-ceo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -55,7 +64,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="TimeLine" id="nTd-FV-7Yo"/>
                     <connections>
-                        <outlet property="ImageView" destination="dkH-1s-d9d" id="3C0-Be-lqy"/>
+                        <outlet property="timeTable" destination="Wxw-QW-W7f" id="sgm-ij-ttc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zh9-eP-ClR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,11 +201,13 @@
                     <navigationItem key="navigationItem" id="zq2-5z-rrh"/>
                     <connections>
                         <outlet property="alertButton" destination="d1A-dG-BFk" id="B0i-zW-uUb"/>
-                        <outlet property="bottomImageViewConstraint" destination="T2L-tu-ogE" id="VB7-KH-f6S"/>
+                        <outlet property="bottomImageViewConstraint" destination="XSE-91-e9g" id="tep-tD-I8w"/>
                         <outlet property="collectionView" destination="zqj-wN-vFi" id="3DT-uy-K71"/>
+                        <outlet property="collectionViewConstraint" destination="the-rF-AYb" id="b8O-Le-tQr"/>
                         <outlet property="imageView" destination="wjR-OC-aRC" id="sg0-Rw-ZO5"/>
-                        <outlet property="topImageViewConstraint" destination="i2j-Zq-8ct" id="JVh-BQ-UQi"/>
-                        <outlet property="topwChRViewConstraint" destination="i2j-Zq-8ct" id="X81-ji-Tsc"/>
+                        <outlet property="leadingImageConstraint" destination="ahS-F4-yy5" id="Lq5-zL-Yvh"/>
+                        <outlet property="topImageConstraint" destination="i2j-Zq-8ct" id="CCz-bH-ydX"/>
+                        <outlet property="trailingImageViewConstraint" destination="pqC-kM-9H2" id="Sd2-mY-fY0"/>
                         <segue destination="uqt-XK-oZA" kind="show" identifier="showGallery" id="yur-ba-SUa"/>
                     </connections>
                 </viewController>
@@ -238,6 +249,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="thumbnailImage" destination="Qou-ar-o8N" id="zhZ-01-AtY"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

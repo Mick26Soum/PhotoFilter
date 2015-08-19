@@ -17,6 +17,7 @@ class ViewController: UIViewController {
 	let ktopImageBuffer : CGFloat = 70
 	let ktrailingImageBuffer : CGFloat = -70
 	let kbottomImageBuffer : CGFloat = -120
+	let kcollectionViewBuffer :CGFloat = 100
 	let kThumbnailSize = CGSize(width: 100, height: 100)
 	
 	let kStandardConstraintMargin : CGFloat = 8
@@ -28,10 +29,16 @@ class ViewController: UIViewController {
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var alertButton: UIButton!
 	
-	@IBOutlet weak var leadingImageViewConstraint: NSLayoutConstraint!
-	@IBOutlet weak var topImageViewConstraint: NSLayoutConstraint!
+	@IBOutlet weak var leadingImageConstraint: NSLayoutConstraint!
+
+	@IBOutlet weak var topImageConstraint: NSLayoutConstraint!
+	
 	@IBOutlet weak var trailingImageViewConstraint: NSLayoutConstraint!
+	
 	@IBOutlet weak var bottomImageViewConstraint: NSLayoutConstraint!
+	
+	@IBOutlet weak var collectionViewConstraint: NSLayoutConstraint!
+	
 	
 //MARK: IBAction
 	@IBAction func buttonPressed(sender: AnyObject) {
@@ -142,7 +149,7 @@ class ViewController: UIViewController {
     }//end of viewDidLoad
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "ShowGallery" {
+		if segue.identifier == "showGallery" {
 			if let galleryViewController = segue.destinationViewController as? GalleryViewController {
 				galleryViewController.delegate = self
 				galleryViewController.desiredFinalImageSize = imageView.frame.size
@@ -153,10 +160,11 @@ class ViewController: UIViewController {
 	
 //MARK: Filter Function
 	func filterModeTransition() {
-		leadingImageViewConstraint.constant = kleadImageBuffer
-		topImageViewConstraint.constant = ktopImageBuffer
+		leadingImageConstraint.constant = kleadImageBuffer
+		topImageConstraint.constant = ktopImageBuffer
 		trailingImageViewConstraint.constant = ktrailingImageBuffer
 		bottomImageViewConstraint.constant = kbottomImageBuffer
+		collectionViewConstraint.constant = kcollectionViewBuffer
 		
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.view.layoutIfNeeded()
@@ -168,10 +176,12 @@ class ViewController: UIViewController {
 	
 	func endFilterMode() {
 	
-		leadingImageViewConstraint.constant = leadingImageViewConstraint.constant - kleadImageBuffer
-		topImageViewConstraint.constant = topImageViewConstraint.constant - ktopImageBuffer
+		leadingImageConstraint.constant = leadingImageConstraint.constant - kleadImageBuffer
+		topImageConstraint.constant = topImageConstraint.constant - ktopImageBuffer
 		trailingImageViewConstraint.constant = trailingImageViewConstraint.constant - ktrailingImageBuffer
 		bottomImageViewConstraint.constant = bottomImageViewConstraint.constant - kbottomImageBuffer
+		collectionViewConstraint.constant = collectionViewConstraint.constant - kcollectionViewBuffer
+		
 		
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.view.layoutIfNeeded()

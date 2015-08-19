@@ -11,13 +11,17 @@ import Parse
 
 class TimeLineViewController: UIViewController {
 	
-	@IBOutlet weak var ImageView: UIImageView!
-	
-	
+	//set view controller as delegate and datasource
+
+	@IBOutlet weak var timeTable: UITableView!
+
 	var Posts = [PFObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+			
+			timeTable.dataSource = self
+			timeTable.delegate = self
 			
 			let query = PFQuery(className: "Post")
 			
@@ -26,25 +30,11 @@ class TimeLineViewController: UIViewController {
 					println(error.localizedDescription)
 				} else if let posts = results as? [PFObject] {
 				self.Posts = posts
+				self.timeTable.reloadData()
 				}
 			}
+			
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -59,22 +49,23 @@ extension TimeLineViewController: UITableViewDataSource, UITableViewDelegate{
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		var cell = tableView.dequeueReusableCellWithIdentifier("thumbNail", forIndexPath: indexPath) as!UITableViewCell
-		
+		var cell = tableView.dequeueReusableCellWithIdentifier("timeLineCell", forIndexPath: indexPath) as! TimeViewCell
+	
 		
 		//get index of cell
 		var Post = Posts[indexPath.row]
-		
-		if let imageFile = Post["image"] as? PFFile {
-				imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-					if let error = error {
-						println(error.localizedDescription)
-					} else if let data = data,
+	
+		if let imageFile = Post["image"] as? PFFile{
+			imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+				if let error = error{
+					println(error.localizedDescription)
+				}
+					if let data = data,
 						image = UIImage(data: data){
-							cell.imageView?.image image 
-							})
+							cell.timeLineUIImage.image = image
 					}
-				})
+			})
+		}
 		
 		return cell
 		
